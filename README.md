@@ -1,6 +1,6 @@
 # KirbyText Extension - Code
 
-*Version:* 0.3
+*Version:* 1.0
 
 A simple KirbyText to display a code file in a code block.
 
