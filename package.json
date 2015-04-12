@@ -1,7 +1,7 @@
 {
     "name": "code",
     "readable": "Code",
-    "version": "1.1",
+    "version": "1.2",
     "stable": true,
     "description": "A simple KirbyText to display a code file in a code block.",
     "author": "Thomas Fanninger",

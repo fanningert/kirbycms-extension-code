@@ -29,7 +29,7 @@ Don't mess up your content files with huge code blocks! This plugin let's you sp
 
 ### v1.2
 
-* 
+* Add different CSS class to `figcaption` for caption on the top or bottom
 
 ### Version 1.1 
 
