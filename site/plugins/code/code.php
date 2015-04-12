@@ -1,15 +1,17 @@
 <?php
+namespace at\fanninger\kirby\extension;
+
 class Code {
 	
 	/**
-	 * 
-	 * @param string $code
+	 *
+	 * @param string $code        	
 	 * @return string
 	 */
 	public static function convert($code) {
-		$code = htmlentities ($code);
+		$code = htmlentities ( $code );
 		
-		return (string)$code;
+		return ( string ) $code;
 	}
 	
 	/**
@@ -20,12 +22,10 @@ class Code {
 	 * @param string $caption_top        	
 	 * @return string
 	 */
-	public static function generateCodeBlockFromFile($file, $lang = '', $caption = '', $caption_top = false, $class = '') {
-		if ($file) {
+	public static function getCodeBlockFromFile($file, $lang, $caption, $caption_top = true, $class) {
+		if ($file)
 			$code = $file->read ();
-		}
-		
-		return (string) self::generateCodeBlock ( $code, $lang, $caption, $caption_top, $class );
+		return ( string ) self::getCodeBlock ( $code, $lang, $caption, $caption_top, $class );
 	}
 	
 	/**
@@ -33,32 +33,42 @@ class Code {
 	 * @param string $code        	
 	 * @param string $lang        	
 	 * @param string $caption        	
-	 * @param string $caption_top        	
+	 * @param string $caption_top   
+	 * @param string $class     	
 	 * @return Brick|string
 	 */
-	public static function generateCodeBlock($code, $lang = '', $caption = '', $caption_top = false, $class = '') {
+	public static function getCodeBlock($code, $lang, $caption, $caption_top = true, $class) {
 		$code = self::convert ( $code );
 		
-		$html_code = new Brick( 'code' );
-		if(! empty($lang))
-			$html_code->addClass( "language-".$lang );
-		$html_code->append($code);
+		$figure_caption = '';
+		if (! empty ( $caption )) {
+			$caption = (string) self::convert ( $caption );
+			$figure_caption = new \Brick ( 'figcaption', $caption );
+		}
 		
-		$html_pre = new Brick('pre');
-		$html_pre->append($html_code);
+		$html_code = new \Brick ( 'code', $code );
+		if (! empty ( $lang ))
+			$html_code->addClass ( "language-" . $lang );
+		
+		$html_pre = new \Brick ( 'pre', $html_code );
 		
 		if (! empty ( $caption )) {
-			$figure = new Brick ( 'figure' );
+			$figure = new \Brick ( 'figure' );
 			if (! empty ( $class ))
 				$figure->addClass ( $class );
-			if ($caption_top)
-				$figure->append ( '<figcaption>' . html ( $caption ) . '</figcaption>' );
+			if ($caption_top === true && ! empty ( $figure_caption )) {
+				$figure_caption->addClass ( 'caption-top' );
+				$figure->append ( $figure_caption );
+			}
 			$figure->append ( $html_pre );
-			if (! $caption_top)
-				$figure->append ( '<figcaption>' . html ( $caption ) . '</figcaption>' );
-			return (string) $figure;
-		} else {
-			return (string) $html_pre;
+			if ($caption_top !== true && ! empty ( $figure_caption )) {
+				$figure_caption->addClass ( 'caption-bottom' );
+				$figure->append ( $figure_caption );
+			}
+
+			return (string) $figure->toString();
+		} else {			
+			return (string) $html_pre->toString();
 		}
 	}
 }

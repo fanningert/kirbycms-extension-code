@@ -12,15 +12,18 @@ kirbytext::$tags ['code'] = array (
 				'lang',
 				'caption',
 				'caption_top',
-				'class' 
+				'caption_class' 
 		),
 		'html' => function ($tag) {
-			$class = $tag->attr ( 'class' );
-			$lang = $tag->attr ( 'lang', '' );
-			$caption = $tag->attr ( 'caption', '' );
+			$class = $tag->attr ( 'caption_class' );
+			$lang = $tag->attr ( 'lang' );
+			$caption = $tag->attr ( 'caption' );
 			$caption_top = $tag->attr ( 'caption_top', true );
 			
 			$file = $tag->file ( $tag->attr ( 'code' ) );
-			return Code::generateCodeBlockFromFile ( $file, $lang, $caption, $caption_top, $class );
+			
+			$html_code = \at\fanninger\kirby\extension\Code::getCodeBlockFromFile ( $file, $lang, $caption, $caption_top, $class );
+			
+			return $html_code;
 		} 
 );
