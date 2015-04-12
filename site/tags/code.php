@@ -22,7 +22,7 @@ kirbytext::$tags ['code'] = array (
 			
 			$file = $tag->file ( $tag->attr ( 'code' ) );
 			
-			$html_code = \at\fanninger\kirby\extension\Code::getCodeBlockFromFile ( $file, $lang, $caption, $caption_top, $class );
+			$html_code = \at\fanninger\kirby\extension\CodeExt::getCodeBlockFromFile ( $file, $lang, $caption, $caption_top, $class );
 			
 			return $html_code;
 		} 

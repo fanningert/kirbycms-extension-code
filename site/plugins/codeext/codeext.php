@@ -1,7 +1,7 @@
 <?php
 namespace at\fanninger\kirby\extension;
 
-class Code {
+class CodeExt {
 	
 	/**
 	 *
@@ -25,6 +25,8 @@ class Code {
 	public static function getCodeBlockFromFile($file, $lang, $caption, $caption_top = true, $class) {
 		if ($file)
 			$code = $file->read ();
+		else 
+			$code = 'Unknown content file';
 		return ( string ) self::getCodeBlock ( $code, $lang, $caption, $caption_top, $class );
 	}
 	

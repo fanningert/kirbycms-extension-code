@@ -1,6 +1,4 @@
-# KirbyText Extension - Code
-
-*Version:* 1.1
+# KirbyText Extension - CodeExt
 
 Don't mess up your content files with huge code blocks! This plugin let's you specify code files which will get embedded into code blocks within your content when rendering your page.
 
@@ -27,16 +25,22 @@ Don't mess up your content files with huge code blocks! This plugin let's you sp
 
 ## Changelog
 
+### v1.3
+ 
+* Change name from `Code` to `CodeExt` (also the class name is changed to `CodeExt`)
+* Code cleanup
+
 ### v1.2
 
 * Add different CSS class to `figcaption` for caption on the top or bottom
+* Changed option `class` to `caption_class`
 
-### Version 1.1 
+### v1.1 
 
 * Feature: Add namespace to the core class, for better difference with other classes and plugins
 * Feature: Add custom config parameter "kirby.extension.code.default_lang", default value is "false", possible values are "false" or a language string.
 * Feature: Add custom config parameter "kirby.extemsion.code.default_caption", default value is "false", possible values are "false", "{filebasename}", "{filename}", "{filedescription}" or a custom text
 
-### Version 1.0
+### v1.0
 
 * Intial release with complete rebuild code
