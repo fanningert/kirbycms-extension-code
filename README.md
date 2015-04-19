@@ -2,6 +2,10 @@
 
 Don't mess up your content files with huge code blocks! This plugin let's you specify code files which will get embedded into code blocks within your content when rendering your page.
 
+## Installation
+
+Simple copy the `site` directory of this package into the kirby installation directory (root directory of your kirby project where the site directory already exist).
+
 ## Options
 
 * *lang*: (optional) Code language description
