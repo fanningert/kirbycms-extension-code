@@ -3,6 +3,7 @@
 	<name>kirbycms-extension-code</name>
 	<comment></comment>
 	<projects>
+		<project>kirbycms-extension-webhelper</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

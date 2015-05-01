@@ -2,9 +2,17 @@
 
 Don't mess up your content files with huge code blocks! This plugin let's you specify code files which will get embedded into code blocks within your content when rendering your page.
 
+## Requirements
+
+* [Kirby Extension - WebHelper](https://github.com/fanningert/kirbycms-extension-webhelper)
+
 ## Installation
 
-Simple copy the `site` directory of this package into the kirby installation directory (root directory of your kirby project where the site directory already exist).
+TODO
+
+## Updgrade
+
+TODO
 
 ## Options
 
@@ -27,7 +35,29 @@ Simple copy the `site` directory of this package into the kirby installation dir
 (code: code.html lang: html caption: HTML)
 ```
 
+### Code with included source code
+
+```
+(code lang: html caption: HTML)
+<html>
+  <head>
+    <title>test</title>
+  </head>
+  <body>
+    Text
+  </body>
+</html>
+(/code)
+```
+
+
 ## Changelog
+
+### v1.5
+
+* Changed project structure for easy integrate into projects (git submodules)
+* Add Requirement `kirbycms-extension-webhelper`
+* Support for included source code
 
 ### v1.3
  
