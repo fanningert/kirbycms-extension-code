@@ -57,7 +57,7 @@ TODO
 
 * Changed project structure for easy integrate into projects (git submodules)
 * Add Requirement `kirbycms-extension-webhelper`
-* Support for included source code
+* Support for inline source code
 
 ### v1.3
  

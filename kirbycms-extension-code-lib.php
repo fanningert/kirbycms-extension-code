@@ -36,11 +36,14 @@ class CodeExt {
 		$code = WebHelper::convert ( $code );
 		
 		$attr = array();
-		if ( $lang !== false )
+		if ( $lang !== false ) {
 			$attr['class'] = "language-" . $lang;
+			$attr['data-lang'] = $lang;
+		}
 		$code_block = \Html::tag("code", $code, $attr);
 		
 		$attr = array();
+		$attr['class'] = "highlight";
 		$pre_block = \Html::tag("pre", $code_block, $attr);
 		
 		//Figure
