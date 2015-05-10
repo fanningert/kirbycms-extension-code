@@ -30,9 +30,9 @@ kirbytext::$pre[] = function($kirbytext, $value) {
 		if ( empty($caption_top) || $caption_top !== true || $caption_top !== false )
 			$caption_top =true;
 		if ( empty($caption_class) )
-			$caption_class = "code";
+			$caption_class = "code-figure";
 		else
-			$caption_class = "code ".$caption_class;
+			$caption_class = "code-figure ".$caption_class;
 		
 		if ( $file !== false )
 			$block_new = CodeExt::getCodeBlockFromFile($file, $lang, $caption, $caption_top, $caption_class);
