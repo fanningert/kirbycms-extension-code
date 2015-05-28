@@ -17,12 +17,14 @@ class CodeExt {
   const ATTR_CAPTION_CLASS = 'caption_class';
   const ATTR_PARSE = 'parse';
   
+  protected $page = null;
   protected $default = array();
   protected $para_mapping = array();
   protected $data = array();
   protected $content = "";
   
-  public function __construc(){
+  public function __construct(\Page $page) {
+    $this->page = $page;
     $this->loadDefaults();
   }
   
@@ -34,8 +36,12 @@ class CodeExt {
     $this->default[self::ATTR_PARSE] = kirby()->option(self::CONFIG_PARSE, false);
   }
   
+  public function getDefaults(){
+    return $this->default;
+  }
+  
   public function parseAndConvertTags($value, array $attr_template = null){
-    $value = $this->parseAndConvertTag('code',$value, $attr_template);
+    return $this->parseAndConvertTag('code',$value, $attr_template);
   }
   
   protected function parseAndConvertTag($tag, $value, array $attr_template = null){
@@ -62,7 +68,7 @@ class CodeExt {
       $this->data = $this->convertAndMergeAttributes( $tag, null, $attr_template );
     
     $this->content = $block[WebHelper::BLOCK_ARRAY_VALUE_CONTENT];
-    if( $this->data[self::ATTR_PARSE] === true ){
+    if( $this->data[self::ATTR_PARSE] !== true ){
       $this->content = $this->convertContent($this->content);
     }
   }
@@ -93,16 +99,16 @@ class CodeExt {
   
   protected function checkValue($key, $value){
     switch($key){
-			case self::ATTR_PARSE:
-			case self::ATTR_CAPTION_TOP:
-				if ( is_bool($value) )
-					return;
-				if ( is_string($value) )
-					$value = ( $value === "true" )? true : fals;
-				else
-					$value = $this->default[self::ATTR_PARSE];
-				break;
-		}
+      case self::ATTR_PARSE:
+      case self::ATTR_CAPTION_TOP:
+        if ( is_bool($value) )
+          return;
+        if ( is_string($value) )
+          $value = ( $value === "true" )? true : false;
+        else
+          $value = $this->default[self::ATTR_PARSE];
+        break;
+    }
     return $value;
   }
   
@@ -110,17 +116,17 @@ class CodeExt {
     $search_values = array("(", ")");
     $replace_values = array("&#28;", "&#29;");
     
-    $value = str_replace($search_values, $replace_values, $value);
+    //$value = str_replace($search_values, $replace_values, $value);
     
     return $value;
   }
   
   public function toHTML(){
-		return self::getCodeBlock($this->content,
-															$this->data[self::ATTR_LANG],
-															$this->data[self::ATTR_CAPTION],
-															$this->data[self::ATTR_CAPTION_TOP],
-															$this->data[self::ATTR_CAPTION_CLASS]);
+    return self::getCodeBlock($this->content,
+                              $this->data[self::ATTR_LANG],
+                              $this->data[self::ATTR_CAPTION],
+                              $this->data[self::ATTR_CAPTION_TOP],
+                              $this->data[self::ATTR_CAPTION_CLASS]);
   }
   /**
    *
