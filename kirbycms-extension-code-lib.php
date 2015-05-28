@@ -11,6 +11,7 @@ class CodeExt {
   const CONFIG_CAPTION_CLASS = 'kirby.extension.codeext.caption_class';
   const CONFIG_PARSE = 'kirby.extension.codeext.parse';
   
+  const ATTR_FILE = 'code';
   const ATTR_LANG = 'lang';
   const ATTR_CAPTION = 'caption';
   const ATTR_CAPTION_TOP = 'caption_top';
@@ -41,7 +42,7 @@ class CodeExt {
   }
   
   public function parseAndConvertTags($value, array $attr_template = null){
-    return $this->parseAndConvertTag('code',$value, $attr_template);
+    return $this->parseAndConvertTag(self::ATTR_FILE,$value, $attr_template);
   }
   
   protected function parseAndConvertTag($tag, $value, array $attr_template = null){
@@ -122,11 +123,19 @@ class CodeExt {
   }
   
   public function toHTML(){
-    return self::getCodeBlock($this->content,
-                              $this->data[self::ATTR_LANG],
-                              $this->data[self::ATTR_CAPTION],
-                              $this->data[self::ATTR_CAPTION_TOP],
-                              $this->data[self::ATTR_CAPTION_CLASS]);
+    if ( !empty($this->data[self::ATTR_FILE]) ){
+      return self::getCodeBlockFromFile($this->data[self::ATTR_FILE],
+                                $this->data[self::ATTR_LANG],
+                                $this->data[self::ATTR_CAPTION],
+                                $this->data[self::ATTR_CAPTION_TOP],
+                                $this->data[self::ATTR_CAPTION_CLASS]);
+    } else {
+      return self::getCodeBlock($this->content,
+                                $this->data[self::ATTR_LANG],
+                                $this->data[self::ATTR_CAPTION],
+                                $this->data[self::ATTR_CAPTION_TOP],
+                                $this->data[self::ATTR_CAPTION_CLASS]);
+    }
   }
   /**
    *
