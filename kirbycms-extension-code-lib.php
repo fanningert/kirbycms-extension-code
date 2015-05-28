@@ -7,7 +7,7 @@ use at\fanninger\kirby\extension\webhelper\WebHelper;
 class CodeExt {
   
   const CONFIG_LANG = 'kirby.extension.codeext.lang';
-  const CONFIG_CAPTION_TOP = 'kirby.extension.code.extcaption_top';
+  const CONFIG_CAPTION_TOP = 'kirby.extension.code.ext.caption_top';
   const CONFIG_CAPTION_CLASS = 'kirby.extension.codeext.caption_class';
   const CONFIG_PARSE = 'kirby.extension.codeext.parse';
   
@@ -30,10 +30,11 @@ class CodeExt {
   }
   
   protected function loadDefaults(){
+    $this->default[self::ATTR_FILE] = false;
     $this->default[self::ATTR_LANG] = kirby()->option(self::CONFIG_LANG, false);
     $this->default[self::ATTR_CAPTION] = false;
     $this->default[self::ATTR_CAPTION_TOP] = kirby()->option(self::CONFIG_CAPTION_TOP, true);
-    $this->default[self::ATTR_CAPTION_CLASS] = kirby()->option(self::CONFIG_CAPTION_CLASS, 'code');
+    $this->default[self::ATTR_CAPTION_CLASS] = kirby()->option(self::CONFIG_CAPTION_CLASS, 'code-figure');
     $this->default[self::ATTR_PARSE] = kirby()->option(self::CONFIG_PARSE, false);
   }
   
@@ -69,9 +70,6 @@ class CodeExt {
       $this->data = $this->convertAndMergeAttributes( $tag, null, $attr_template );
     
     $this->content = $block[WebHelper::BLOCK_ARRAY_VALUE_CONTENT];
-    if( $this->data[self::ATTR_PARSE] !== true ){
-      $this->content = $this->convertContent($this->content);
-    }
   }
   
   protected function convertAndMergeAttributes($tag, array $attr = null, array $attr_template = null){
@@ -124,7 +122,9 @@ class CodeExt {
   
   public function toHTML(){
     if ( !empty($this->data[self::ATTR_FILE]) ){
-      return self::getCodeBlockFromFile($this->data[self::ATTR_FILE],
+      $source = $this->data[self::ATTR_FILE];
+      $source = ( is_object( $source ) )? $source : $this->page->file ( $source );
+      return self::getCodeBlockFromFile($source,
                                 $this->data[self::ATTR_LANG],
                                 $this->data[self::ATTR_CAPTION],
                                 $this->data[self::ATTR_CAPTION_TOP],
@@ -147,7 +147,7 @@ class CodeExt {
    * @return string
    */
   public static function getCodeBlockFromFile($file, $lang = false, $caption = false, $caption_top = true, $caption_class = false) {
-    if ($file)
+    if ($file && is_object($file))
       $code = $file->read ();
     else
       $code = 'Unknown content file';
