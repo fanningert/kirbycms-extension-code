@@ -27,7 +27,6 @@ class CodeExt {
   protected $content = "";
   
   public function __construct(\Page $page) {
-    self::$replaceContent = array();
     $this->page = $page;
     $this->loadDefaults();
   }
