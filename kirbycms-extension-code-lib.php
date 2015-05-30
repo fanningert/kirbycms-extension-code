@@ -6,17 +6,19 @@ use at\fanninger\kirby\extension\webhelper\WebHelper;
 
 class CodeExt {
   
+  public static $replaceContent = array();
+  
   const CONFIG_LANG = 'kirby.extension.codeext.lang';
   const CONFIG_CAPTION_TOP = 'kirby.extension.code.ext.caption_top';
   const CONFIG_CAPTION_CLASS = 'kirby.extension.codeext.caption_class';
-  const CONFIG_PARSE = 'kirby.extension.codeext.parse';
+  const CONFIG_PARSE_CONTENT = 'kirby.extension.codeext.parse_content';
   
   const ATTR_FILE = 'code';
   const ATTR_LANG = 'lang';
   const ATTR_CAPTION = 'caption';
   const ATTR_CAPTION_TOP = 'caption_top';
   const ATTR_CAPTION_CLASS = 'caption_class';
-  const ATTR_PARSE = 'parse';
+  const ATTR_PARSE_CONTENT = 'parse_content';
   
   protected $page = null;
   protected $default = array();
@@ -35,7 +37,7 @@ class CodeExt {
     $this->default[self::ATTR_CAPTION] = false;
     $this->default[self::ATTR_CAPTION_TOP] = kirby()->option(self::CONFIG_CAPTION_TOP, true);
     $this->default[self::ATTR_CAPTION_CLASS] = kirby()->option(self::CONFIG_CAPTION_CLASS, 'code-figure');
-    $this->default[self::ATTR_PARSE] = kirby()->option(self::CONFIG_PARSE, false);
+    $this->default[self::ATTR_PARSE_CONTENT] = kirby()->option(self::CONFIG_PARSE_CONTENT, false);
   }
   
   public function getDefaults(){
@@ -55,7 +57,12 @@ class CodeExt {
       $length = $block[WebHelper::BLOCK_ARRAY_VALUE_ENDPOS]-$block[WebHelper::BLOCK_ARRAY_VALUE_STARTPOS];
       
       $this->parse($tag, $block, $attr_template);
-      $content = $this->toHTML();
+      if( $this->data[self::ATTR_PARSE_CONTENT] === true ){
+        $content = $this->toHTML();
+      } else {
+        $content = "(".uniqid('code', true).")";
+        CodeExt::$replaceContent[$content] = $this->toHTML();
+      }
       
       $value = substr_replace($value, $content, $start, $length);
     }
@@ -98,14 +105,14 @@ class CodeExt {
   
   protected function checkValue($key, $value){
     switch($key){
-      case self::ATTR_PARSE:
+      case self::ATTR_PARSE_CONTENT:
       case self::ATTR_CAPTION_TOP:
         if ( is_bool($value) )
           return;
         if ( is_string($value) )
           $value = ( $value === "true" )? true : false;
         else
-          $value = $this->default[self::ATTR_PARSE];
+          $value = $this->default[self::ATTR_PARSE_CONTENT];
         break;
     }
     return $value;

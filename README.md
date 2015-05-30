@@ -58,7 +58,7 @@ $ git submodule update
 | `kirby.extension.codeext.lang` | false | false/{string} | Default code language |
 | `kirby.extension.codeext.caption_top` | true | true/false | Place the caption at the top of the code block |
 | `kirby.extension.codeext.caption_class` | 'code' | {string} | Class string for the figure element |
-| `kirby.extension.codeext.parse` | false | true/false | Parse the code with kirbytag and markdown (Not working at the moment) |
+| `kirby.extension.codeext.parse_content` | false | true/false | Parse the code with kirbytag and markdown |
 
 ### KirbyTag attributes
 
@@ -68,7 +68,7 @@ $ git submodule update
 | caption | false | false/{string} | Caption of the code block |
 | caption_top | `none` | {string} | see `kirby.extension.codeext.caption_top` |
 | caption_class |  | {string} | see `kirby.extension.codeext.caption_class` |
-| parse |  | true/false | see `kirby.extension.codeext.parse` |
+| parse |  | true/false | see `kirby.extension.codeext.parse_content` |
 
 ## Examples
 

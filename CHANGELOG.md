@@ -1,3 +1,8 @@
+# v1.5.2
+
+* Add plugin at the first position of the array `pre` and at the last position of array `post`. This is a workaround to make it possible to ignore the kirbytags and markdowns inner the code block.
+* Function to deactivate/activate parse content of code block with markdown and kirbytag
+
 # v1.5.1
 
 * Add option to activate and deactivate the parsing of the code content
