@@ -27,6 +27,7 @@ class CodeExt {
   protected $content = "";
   
   public function __construct(\Page $page) {
+    self::$replaceContent = array();
     $this->page = $page;
     $this->loadDefaults();
   }
@@ -55,6 +56,7 @@ class CodeExt {
       $offset = $block[WebHelper::BLOCK_ARRAY_VALUE_ENDPOS];
       $start = $block[WebHelper::BLOCK_ARRAY_VALUE_STARTPOS];
       $length = $block[WebHelper::BLOCK_ARRAY_VALUE_ENDPOS]-$block[WebHelper::BLOCK_ARRAY_VALUE_STARTPOS];
+      $offset = $start + 1;
       
       $this->parse($tag, $block, $attr_template);
       if( $this->data[self::ATTR_PARSE_CONTENT] === true ){
@@ -65,6 +67,7 @@ class CodeExt {
       }
       
       $value = substr_replace($value, $content, $start, $length);
+      $offset = $start + strlen($content);
     }
     
     return $value;

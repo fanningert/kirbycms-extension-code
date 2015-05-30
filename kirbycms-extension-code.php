@@ -13,11 +13,11 @@ $codeFunctionPre = function($kirbytext, $value) {
 $codeFunctionPost = function($kirbytext, $value) {
   $search = array_keys(CodeExt::$replaceContent);
   $replace = array_values(CodeExt::$replaceContent);
-  $value = str_replace($search, $replace, $value);
+  if( count($search) > 0 ){
+    $value = str_replace($search, $replace, $value);
+  }
   
-  // Clear the array
-  unset(CodeExt::$replaceContent);
-  CodeExt::$replaceContent = array();
+  return $value;
 };
 
 array_unshift(kirbytext::$pre, $codeFunctionPre);
